@@ -82,7 +82,7 @@ socket.on('message', function(message) {
       sdpMLineIndex: message.label,
       candidate: message.candidate
     });
-    pc.addIceCandidate(candidate);
+    pc.addIceCandidate(candidate);  //pc에 ice 추가하기
   } else if (message === 'bye' && isStarted) {
     handleRemoteHangup();
   }
@@ -176,7 +176,7 @@ function handleCreateOfferError(event) {
   console.log('createOffer() error: ', event);
 }
 
-function doCall() {
+function doCall() {  //peer에게 offer보내기
   console.log('Sending offer to peer');
   pc.createOffer(setLocalAndSendMessage, handleCreateOfferError);
 }
@@ -190,7 +190,7 @@ function doAnswer() {
 }
 
 function setLocalAndSendMessage(sessionDescription) {
-  pc.setLocalDescription(sessionDescription);
+  pc.setLocalDescription(sessionDescription);  //받아온 sdp를 넣어주기
   console.log('setLocalAndSendMessage sending message', sessionDescription);
   sendMessage(sessionDescription);
 }
